@@ -1,1 +1,35 @@
+# Unique to Product Service
+server:
+  port: 8085
 
+spring:
+  application:
+    name: PRODUCT-SERVICE
+  
+  # Database Configuration
+  datasource:
+    url: jdbc:mysql://localhost:3306/product_db
+    username: Chandan
+    password: Chandan@23
+
+  # Redis Configuration (For Caching Product Details)
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  # Kafka Configuration (For Sending Product Events)
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.LongSerializer
+
+# API Documentation context-specific paths
+springdoc:
+  api-docs:
+    path: /product/v3/api-docs 
+  swagger-ui:
+    path: /swagger-ui.html
+  server:
+    url: /product
