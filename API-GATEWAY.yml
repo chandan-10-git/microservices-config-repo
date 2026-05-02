@@ -1,1 +1,48 @@
+# Unique to API-GATEWAY
+server:
+  port: 8085
 
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      default-filters:
+        - PreserveHostHeader
+      routes:
+        # Auth Service: Open access
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=0
+
+        # Product Service: Protected
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/product/**
+          filters:
+            - name: AuthenticationFilter
+
+        # Cart Service: Protected
+        - id: cart-service
+          uri: lb://CART-SERVICE
+          predicates:
+            - Path=/cart/**
+          filters:
+            - name: AuthenticationFilter
+
+# Swagger Aggregation Config
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Auth-Service
+        url: /auth/v3/api-docs
+      - name: Product-Service
+        url: /product/v3/api-docs
+      - name: Cart-Service
+        url: /cart/v3/api-docs
+    server:
+      url: /
