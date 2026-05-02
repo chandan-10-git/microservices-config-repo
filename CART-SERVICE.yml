@@ -1,1 +1,37 @@
+# Unique to Cart Service
+server:
+  port: 8083
 
+spring:
+  application:
+    name: CART-SERVICE
+  
+  # Database Configuration
+  datasource:
+    url: jdbc:mysql://localhost:3306/cart_db
+    username: Chandan
+    password: Chandan@23
+
+  # Redis Configuration (For Caching User Carts)
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  # Kafka Configuration (For Listening to Product Deletions)
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: cart-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+
+# API Documentation context-specific paths
+springdoc:
+  api-docs:
+    path: /cart/v3/api-docs 
+  swagger-ui:
+    path: /swagger-ui.html
+  server:
+    url: /cart
