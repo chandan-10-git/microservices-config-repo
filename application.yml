@@ -1,4 +1,4 @@
-//Common for all services
+# Common for all services
 eureka:
   client:
     service-url:
