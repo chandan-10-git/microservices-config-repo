@@ -33,6 +33,13 @@ spring:
             - Path=/cart/**
           filters:
             - name: AuthenticationFilter
+        
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/**
+          filters:
+            - name: AuthenticationFilter
 
 # Swagger Aggregation Config
 springdoc:
@@ -44,5 +51,7 @@ springdoc:
         url: /product/v3/api-docs
       - name: Cart-Service
         url: /cart/v3/api-docs
+      - name: Payment-Service
+        url: /payment/v3/api-docs
     server:
       url: /
